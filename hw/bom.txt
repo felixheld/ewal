@@ -1,0 +1,14 @@
+Stückliste exportiert aus /Users/felix/ewal/hw/ewal.sch am 21.04.14 19:44
+
+Qty Value        Device          Package          Parts
+1                MA03-2          MA03-2           SV1                               (nicht bestückt)
+5   100n         C-EUC0603       C0603            C1, C2, C3, C4, C5
+4   10k          R-EU_R0603      R0603            R1, R2, R3, R9
+5   150          R-EU_R0603      R0603            R4, R5, R6, R7, R8
+1   1u           C-EUC0805       C0805            C6
+1   47k          R-EU_R0603      R0603            R10
+1   ATTINY48     ATTINY48        MLF32-TH         U2
+1   CR2032       CR2032          BK-912           U$3
+1   JS202011SCQN JS202011SCQN    JS202011SCQN     U$4
+1   MMA8653FC    MMA8653FC       2X2_DFN_LONGPADS U1
+5   orange       LEDCHIP-LED0603 CHIP-LED0603     LED_L, LED_M, LED_O, LED_R, LED_U LED
