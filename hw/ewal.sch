@@ -75,8 +75,6 @@
 <package name="2X2_DFN_LONGPADS">
 <wire x1="-1.3" y1="1" x2="1.3" y2="1" width="0.127" layer="21"/>
 <wire x1="-1.3" y1="-1" x2="1.3" y2="-1" width="0.127" layer="21"/>
-<wire x1="-1.3" y1="1" x2="-1.3" y2="-1" width="0.127" layer="21"/>
-<wire x1="1.3" y1="1" x2="1.3" y2="-1" width="0.127" layer="21"/>
 <wire x1="-1.3" y1="1.5" x2="1.3" y2="1.5" width="0.127" layer="21"/>
 <smd name="1" x="-1.6" y="0.8" dx="2" dy="0.225" layer="1"/>
 <smd name="2" x="-1.6" y="0.4" dx="2" dy="0.225" layer="1"/>
@@ -89,6 +87,8 @@
 <smd name="9" x="1.6" y="0.4" dx="2" dy="0.225" layer="1" rot="R180"/>
 <smd name="10" x="1.6" y="0.8" dx="2" dy="0.225" layer="1" rot="R180"/>
 <text x="-2.6" y="-2.4" size="1.016" layer="25">&gt;NAME</text>
+<wire x1="-1.3" y1="1" x2="-1.3" y2="-1" width="0.127" layer="51"/>
+<wire x1="1.3" y1="1" x2="1.3" y2="-1" width="0.127" layer="51"/>
 </package>
 <package name="MLF32-TH">
 <description>&lt;b&gt;32M1-A&lt;/b&gt; Micro Lead Frame package (MLF)</description>
