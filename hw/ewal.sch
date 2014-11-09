@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="7.1.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -76,19 +76,21 @@
 <wire x1="-1.3" y1="1" x2="1.3" y2="1" width="0.127" layer="21"/>
 <wire x1="-1.3" y1="-1" x2="1.3" y2="-1" width="0.127" layer="21"/>
 <wire x1="-1.3" y1="1.5" x2="1.3" y2="1.5" width="0.127" layer="21"/>
-<smd name="1" x="-1.6" y="0.8" dx="2" dy="0.225" layer="1"/>
-<smd name="2" x="-1.6" y="0.4" dx="2" dy="0.225" layer="1"/>
-<smd name="3" x="-1.6" y="0" dx="2" dy="0.225" layer="1"/>
-<smd name="4" x="-1.6" y="-0.4" dx="2" dy="0.225" layer="1"/>
-<smd name="5" x="-1.6" y="-0.8" dx="2" dy="0.225" layer="1"/>
-<smd name="6" x="1.6" y="-0.8" dx="2" dy="0.225" layer="1" rot="R180"/>
-<smd name="7" x="1.6" y="-0.4" dx="2" dy="0.225" layer="1" rot="R180"/>
-<smd name="8" x="1.6" y="0" dx="2" dy="0.225" layer="1" rot="R180"/>
-<smd name="9" x="1.6" y="0.4" dx="2" dy="0.225" layer="1" rot="R180"/>
-<smd name="10" x="1.6" y="0.8" dx="2" dy="0.225" layer="1" rot="R180"/>
+<smd name="1" x="-1.3" y="0.8" dx="1.4" dy="0.225" layer="1" cream="no"/>
+<smd name="2" x="-1.3" y="0.4" dx="1.4" dy="0.225" layer="1" cream="no"/>
+<smd name="3" x="-1.3" y="0" dx="1.4" dy="0.225" layer="1" cream="no"/>
+<smd name="4" x="-1.3" y="-0.4" dx="1.4" dy="0.225" layer="1" cream="no"/>
+<smd name="5" x="-1.3" y="-0.8" dx="1.4" dy="0.225" layer="1" cream="no"/>
+<smd name="6" x="1.3" y="-0.8" dx="1.4" dy="0.225" layer="1" rot="R180" cream="no"/>
+<smd name="7" x="1.3" y="-0.4" dx="1.4" dy="0.225" layer="1" rot="R180" cream="no"/>
+<smd name="8" x="1.3" y="0" dx="1.4" dy="0.225" layer="1" rot="R180" cream="no"/>
+<smd name="9" x="1.3" y="0.4" dx="1.4" dy="0.225" layer="1" rot="R180" cream="no"/>
+<smd name="10" x="1.3" y="0.8" dx="1.4" dy="0.225" layer="1" rot="R180" cream="no"/>
 <text x="-2.6" y="-2.4" size="1.016" layer="25">&gt;NAME</text>
 <wire x1="-1.3" y1="1" x2="-1.3" y2="-1" width="0.127" layer="51"/>
 <wire x1="1.3" y1="1" x2="1.3" y2="-1" width="0.127" layer="51"/>
+<rectangle x1="-1.4" y1="-1" x2="-0.9" y2="1" layer="31"/>
+<rectangle x1="0.9" y1="-1" x2="1.4" y2="1" layer="31"/>
 </package>
 <package name="MLF32-TH">
 <description>&lt;b&gt;32M1-A&lt;/b&gt; Micro Lead Frame package (MLF)</description>
@@ -7810,6 +7812,8 @@ Source: www.kingbright.com</description>
 <part name="R10" library="rcl" deviceset="R-EU_" device="R0603" value="47k"/>
 <part name="GND16" library="supply1" deviceset="GND" device=""/>
 <part name="P+13" library="supply1" deviceset="VCC" device=""/>
+<part name="C7" library="rcl" deviceset="C-EU" device="C0603" value="33n"/>
+<part name="R11" library="rcl" deviceset="R-EU_" device="R0603" value="10k"/>
 </parts>
 <sheets>
 <sheet>
@@ -7823,8 +7827,8 @@ Source: www.kingbright.com</description>
 <instance part="GND2" gate="1" x="106.68" y="71.12" rot="R270"/>
 <instance part="P+1" gate="VCC" x="10.16" y="66.04"/>
 <instance part="P+2" gate="VCC" x="106.68" y="83.82"/>
-<instance part="P+3" gate="VCC" x="71.12" y="48.26"/>
-<instance part="P+4" gate="VCC" x="78.74" y="48.26"/>
+<instance part="P+3" gate="VCC" x="71.12" y="45.72"/>
+<instance part="P+4" gate="VCC" x="78.74" y="45.72"/>
 <instance part="C1" gate="G$1" x="2.54" y="20.32"/>
 <instance part="C2" gate="G$1" x="10.16" y="20.32"/>
 <instance part="C3" gate="G$1" x="88.9" y="71.12"/>
@@ -7842,7 +7846,7 @@ Source: www.kingbright.com</description>
 <instance part="C5" gate="G$1" x="106.68" y="63.5"/>
 <instance part="GND7" gate="1" x="106.68" y="55.88"/>
 <instance part="R3" gate="G$1" x="86.36" y="38.1" rot="R90"/>
-<instance part="P+9" gate="VCC" x="86.36" y="48.26"/>
+<instance part="P+9" gate="VCC" x="86.36" y="45.72"/>
 <instance part="SV1" gate="1" x="119.38" y="40.64" rot="R180"/>
 <instance part="LED_L" gate="G$1" x="165.1" y="48.26"/>
 <instance part="LED_M" gate="G$1" x="193.04" y="48.26"/>
@@ -7872,6 +7876,8 @@ Source: www.kingbright.com</description>
 <instance part="R10" gate="G$1" x="60.96" y="81.28" rot="R90"/>
 <instance part="GND16" gate="1" x="76.2" y="71.12"/>
 <instance part="P+13" gate="VCC" x="60.96" y="88.9"/>
+<instance part="C7" gate="G$1" x="167.64" y="7.62"/>
+<instance part="R11" gate="G$1" x="177.8" y="12.7"/>
 </instances>
 <busses>
 </busses>
@@ -7995,17 +8001,14 @@ Source: www.kingbright.com</description>
 <segment>
 <pinref part="R1" gate="G$1" pin="2"/>
 <pinref part="P+3" gate="VCC" pin="VCC"/>
-<wire x1="71.12" y1="45.72" x2="71.12" y2="43.18" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="R2" gate="G$1" pin="2"/>
 <pinref part="P+4" gate="VCC" pin="VCC"/>
-<wire x1="78.74" y1="45.72" x2="78.74" y2="43.18" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="R3" gate="G$1" pin="2"/>
 <pinref part="P+9" gate="VCC" pin="VCC"/>
-<wire x1="86.36" y1="45.72" x2="86.36" y2="43.18" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="SV1" gate="1" pin="2"/>
@@ -8242,6 +8245,41 @@ Source: www.kingbright.com</description>
 <pinref part="U2" gate="G$1" pin="PD2/INT0"/>
 <wire x1="55.88" y1="15.24" x2="63.5" y2="15.24" width="0.1524" layer="91"/>
 <label x="55.88" y="15.24" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="TOUCH2" class="0">
+<segment>
+<pinref part="U2" gate="G$1" pin="PB6/CLKI"/>
+<wire x1="55.88" y1="50.8" x2="63.5" y2="50.8" width="0.1524" layer="91"/>
+<label x="55.88" y="50.8" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="C7" gate="G$1" pin="2"/>
+<wire x1="167.64" y1="2.54" x2="160.02" y2="2.54" width="0.1524" layer="91"/>
+<label x="160.02" y="2.54" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="TOUCH1" class="0">
+<segment>
+<pinref part="U2" gate="G$1" pin="PB7"/>
+<wire x1="55.88" y1="48.26" x2="63.5" y2="48.26" width="0.1524" layer="91"/>
+<label x="55.88" y="48.26" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="R11" gate="G$1" pin="1"/>
+<pinref part="C7" gate="G$1" pin="1"/>
+<wire x1="172.72" y1="12.7" x2="167.64" y2="12.7" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="12.7" x2="167.64" y2="10.16" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="12.7" x2="160.02" y2="12.7" width="0.1524" layer="91"/>
+<junction x="167.64" y="12.7"/>
+<label x="160.02" y="12.7" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="TOUCH" class="0">
+<segment>
+<pinref part="R11" gate="G$1" pin="2"/>
+<wire x1="182.88" y1="12.7" x2="193.04" y2="12.7" width="0.1524" layer="91"/>
+<label x="182.88" y="12.7" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
