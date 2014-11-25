@@ -135,7 +135,7 @@
 <smd name="30" x="-0.75" y="2.35" dx="0.3" dy="0.7" layer="1" roundness="50"/>
 <smd name="31" x="-1.25" y="2.35" dx="0.3" dy="0.7" layer="1" roundness="50"/>
 <smd name="32" x="-1.75" y="2.35" dx="0.3" dy="0.7" layer="1" roundness="50"/>
-<smd name="TH" x="0" y="0" dx="3.2" dy="3.2" layer="1"/>
+<smd name="TH" x="0" y="0" dx="3.2" dy="3.2" layer="1" cream="no"/>
 <text x="-2.54" y="3.175" size="1.27" layer="25">&gt;NAME</text>
 <text x="-2.54" y="-4.445" size="1.27" layer="27">&gt;VALUE</text>
 <rectangle x1="-2.5" y1="1.6" x2="-2.05" y2="1.9" layer="51"/>
@@ -170,6 +170,7 @@
 <rectangle x1="-0.9" y1="2.05" x2="-0.6" y2="2.5" layer="51"/>
 <rectangle x1="-1.4" y1="2.05" x2="-1.1" y2="2.5" layer="51"/>
 <rectangle x1="-1.9" y1="2.05" x2="-1.6" y2="2.5" layer="51"/>
+<rectangle x1="-0.8" y1="-0.8" x2="0.8" y2="0.8" layer="31"/>
 </package>
 <package name="BK-912">
 <smd name="-" x="0" y="0" dx="17.78" dy="17.78" layer="1" roundness="100" cream="no"/>
