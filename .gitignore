@@ -1,2 +1,11 @@
 *.b#*
 *.s#*
+*.swp
+
+#ignore gerbers
+*.gpi
+*ewal_top*
+*ewal_bottom*
+*ewal_drill*
+*board_outline*
+*.zip
