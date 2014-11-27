@@ -43,29 +43,16 @@ void compute_led_state(int16_t x, int16_t y, int16_t z){
 	int16_t y_abs = y<0?-y:y;
 	int16_t z_abs = z<0?-z:z;
 	
-	if(z_abs > x_abs && z_abs > x_abs)	// Ground or Ceiling
-	{
-		if(z>0)
-		{
-			// Do nothing, all the axes are correctly aligned
-		}
-		else	// z < 0
-		{
-			x = -x;
-			y = -y;
-			z = -z;
-		}
-	}
-	else if(x_abs > z_abs && x_abs > y_abs)	// Wall	
+	if(x_abs > z_abs && x_abs > y_abs)	// Wall	
 	{
 		if(x>0)
 		{
-			x = z;
+			x = -z;
 			y = 0;	// Disable y-axis, as that would only measure the rotation of the device
 		}
 		else	// x < 0
 		{
-			x = -z;
+			x = z;
 			y = 0;
 		}
 	}
@@ -73,12 +60,12 @@ void compute_led_state(int16_t x, int16_t y, int16_t z){
 	{
 		if(y > 0)
 		{
-			y = z;	// Disable x-axis, as that would only measure the rotation of the device
+			y = -z;	// Disable x-axis, as that would only measure the rotation of the device
 			x = 0;
 		}
 		else	// y < 0
 		{
-			y = -z;
+			y = z;
 			x = 0;	
 		}
 	}
@@ -105,34 +92,35 @@ void compute_led_state(int16_t x, int16_t y, int16_t z){
 	update_led();
 }
 
-#define BUFDEPTH 16	// Depth of the ringbuffer for averaging purposes, must be power of two
-
+#define BUFDEPTH 16	// Depth of the ringbuffer for averaging purposes
 void filter(uint16_t x, uint16_t y, uint16_t z)
 {
-	static uint16_t counter = 0;
-	static uint16_t xbuf[BUFDEPTH];
-	static uint16_t ybuf[BUFDEPTH];
-	static uint16_t zbuf[BUFDEPTH];
+	static int16_t counter = 0;
+	static int16_t xbuf[BUFDEPTH];
+	static int16_t ybuf[BUFDEPTH];
+	static int16_t zbuf[BUFDEPTH];
+	int32_t xt = 0;
+	int32_t yt = 0;
+	int32_t zt = 0;
 
-	xbuf[counter|(BUFDEPTH-1)] = x;
-	ybuf[counter|(BUFDEPTH-1)] = y;
-	zbuf[counter|(BUFDEPTH-1)] = z;
-	counter++;
-	
-	x = 0;
-	y = 0;
-	z = 0;
-
-	for(int i = 0; i < BUFDEPTH; i++)
+	xbuf[counter] = x;
+	ybuf[counter] = y;
+	zbuf[counter] = z;
+	if(++counter >= BUFDEPTH)
 	{
-		x += xbuf[i];
-		y += ybuf[i];
-		z += zbuf[i];
+		counter = 0;
 	}
 
-	x /= BUFDEPTH;
-	y /= BUFDEPTH;
-	z /= BUFDEPTH;
+	for(uint8_t i = 0; i < BUFDEPTH; i++)
+	{
+		xt += xbuf[i];
+		yt += ybuf[i];
+		zt += zbuf[i];
+	}
+
+	x = xt/BUFDEPTH;
+	y = yt/BUFDEPTH;
+	z = zt/BUFDEPTH;
 	
 	compute_led_state(x,y,z);
 }
