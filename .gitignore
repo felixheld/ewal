@@ -9,3 +9,6 @@
 *ewal_drill*
 *board_outline*
 *.zip
+
+#ignore build directory
+sw/build/*
