@@ -6,13 +6,20 @@
 #include <avr/interrupt.h>
 #include "i2cmaster.h"
 
-struct led_t {
-		unsigned char o : 1;
-		unsigned char l : 1;
-		unsigned char m : 1;
-		unsigned char r : 1;
-		unsigned char u : 1;
+struct led_t	// LED
+{
+	uint8_t o : 1;
+	uint8_t l : 1;
+	uint8_t m : 1;
+	uint8_t r : 1;
+	uint8_t u : 1;
 } leds;
+
+struct led_i	// Led intensity for PWM purposes
+{
+	int8_t ou;
+	int8_t lr;
+} ledi;
 
 //set the led output ports to the state in the global variable leds
 void update_led(){
@@ -29,15 +36,11 @@ void update_led(){
 }
 
 #define THRESHOLD_VALUE	10
+#define VALMUL 3
 
 //this code only implements the case where the pcb is lies on a flat surface
 void compute_led_state(int16_t x, int16_t y, int16_t z){
 
-	leds.o = 0;
-	leds.l = 0;
-	leds.m = 0;
-	leds.r = 0;
-	leds.u = 0;
 
 	int16_t x_abs = x<0?-x:x;
 	int16_t y_abs = y<0?-y:y;
@@ -73,23 +76,47 @@ void compute_led_state(int16_t x, int16_t y, int16_t z){
 
 	leds.m = 1;
 	if(x > THRESHOLD_VALUE){
-		leds.u = 1;
 		leds.m = 0;
 	}
 	if(x < -THRESHOLD_VALUE){
-		leds.o = 1;
 		leds.m = 0;
 	}
 	if(y > THRESHOLD_VALUE){
-		leds.r = 1;
 		leds.m = 0;
 	}
 	if(y < -THRESHOLD_VALUE){
-		leds.l = 1;
 		leds.m = 0;
 	}
 	
-	update_led();
+	
+	if(-x > INT8_MAX)
+	{
+		ledi.ou = INT8_MAX;
+	}
+	else if (-x < INT8_MIN)
+	{
+		ledi.ou = -100;
+	}
+	else
+	{
+		ledi.ou = -x;
+	}
+	
+	if(y > INT8_MAX)
+	{
+		ledi.lr = 100;
+	}
+	else if (y < INT8_MIN)
+	{
+		ledi.lr = -100;
+	}
+	else
+	{
+		ledi.lr = y;
+	}
+
+		
+	//update_led();
 }
 
 #define BUFDEPTH 16	// Depth of the ringbuffer for averaging purposes
@@ -160,6 +187,12 @@ int main(){
 	DDRB |= 0x07;
 	DDRD |= 0xC0;
 
+	// Initiate timer0
+	TCCR0A = (0 << CS02) | (1 << CS01) | (1 << CS00);
+	TIMSK0 = (1 << OCIE0A) | (1 << OCIE0B) | (1 << TOIE0);
+
+	sei();	// Enable global interrupts
+
 	leds.o = 1;
 	leds.l = 1;
 	leds.m = 1;
@@ -187,14 +220,15 @@ int main(){
 
 	uint8_t temp;
 
-	while(1){
+	while(1)
+	{
 		//get sensor status
 		i2c_start_wait(0x3a);
 		i2c_write(0x00);
 		i2c_rep_start(0x3b);
 		temp = i2c_readNak();
 		i2c_stop();
-
+		
 		//only read and process sensor data, if all channels have new values
 		if((temp & 0x07) == 0x07){
 			read_and_process_sensor_data();
@@ -202,4 +236,31 @@ int main(){
 	}
 
 	return 0;
+}
+
+
+ISR(TIMER0_OVF_vect)
+{
+	leds.o = (ledi.ou > 0)?1:0;
+	leds.l = (ledi.lr < 0)?1:0;
+	leds.r = (ledi.lr > 0)?1:0;
+	leds.u = (ledi.ou < 0)?1:0;
+	update_led();
+
+	OCR0A = ((ledi.ou > 0)?ledi.ou:-ledi.ou);
+	OCR0B = ((ledi.lr > 0)?ledi.lr:-ledi.lr);
+}
+
+ISR(TIMER0_COMPA_vect)	// Takes control of l/r LEDs
+{
+	leds.o = 0;
+	leds.u = 0;
+	update_led();
+}
+
+ISR(TIMER0_COMPB_vect)	// Takes control of u/o LEDs
+{
+	leds.l = 0;
+	leds.r = 0;
+	update_led();
 }
