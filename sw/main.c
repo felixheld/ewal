@@ -37,10 +37,15 @@ void update_led(){
 
 #define THRESHOLD_VALUE	10
 #define VALMUL 3
+#define PWMTHRESHOLD 20
+// Calibrate individually!
+#define CALX 0 //-4
+#define CALY 0 //4
 
 //this code only implements the case where the pcb is lies on a flat surface
 void compute_led_state(int16_t x, int16_t y, int16_t z){
-
+	x += CALX;
+	y += CALY;
 
 	int16_t x_abs = x<0?-x:x;
 	int16_t y_abs = y<0?-y:y;
@@ -88,31 +93,58 @@ void compute_led_state(int16_t x, int16_t y, int16_t z){
 		leds.m = 0;
 	}
 	
+	x *= VALMUL;
+	y *= VALMUL;
 	
 	if(-x > INT8_MAX)
 	{
-		ledi.ou = INT8_MAX;
+		ledi.ou = INT8_MAX-1;
 	}
 	else if (-x < INT8_MIN)
 	{
-		ledi.ou = -100;
+		ledi.ou = INT8_MIN;
 	}
 	else
 	{
 		ledi.ou = -x;
+		if(ledi.ou > PWMTHRESHOLD)
+		{
+			ledi.ou -= PWMTHRESHOLD;
+		}
+		else if(ledi.ou < -PWMTHRESHOLD)
+		{
+			ledi.ou += PWMTHRESHOLD;
+		}
+		else
+		{
+			ledi.ou = 0;
+		}
 	}
 	
 	if(y > INT8_MAX)
 	{
-		ledi.lr = 100;
+		ledi.lr = INT8_MAX-1;
 	}
 	else if (y < INT8_MIN)
 	{
-		ledi.lr = -100;
+		ledi.lr = INT8_MIN;
 	}
 	else
 	{
 		ledi.lr = y;
+		if(ledi.lr > PWMTHRESHOLD)
+		{
+			ledi.lr -= PWMTHRESHOLD;
+		}
+		else if(ledi.lr < -PWMTHRESHOLD)
+		{
+			ledi.lr += PWMTHRESHOLD;
+		}
+		else
+		{
+			ledi.lr = 0;
+		}
+
 	}
 
 		
